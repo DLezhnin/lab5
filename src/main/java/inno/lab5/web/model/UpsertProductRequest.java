@@ -1,18 +1,22 @@
 package inno.lab5.web.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UpsertProductRequest {
     private Long       productCodeId;
     private Long       client;
     private String     type;
     private String     number;
     private int        priority;
-    private Timestamp dateOfConclusion;
+    private Timestamp  dateOfConclusion;
     private Timestamp  startDateTime;
     private Timestamp  endDateTime;
     private int        days;
