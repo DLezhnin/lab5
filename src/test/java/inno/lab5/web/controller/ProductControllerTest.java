@@ -40,11 +40,9 @@ public class ProductControllerTest extends AbstractTestController {
         ProductRegisterResponse productRegisterResponse = createProductRegisterResponse(1L);
 
         productResponses.add((createProductResponse(2L,productRegisterResponse)));
-
         ProductListResponse productListResponse = new ProductListResponse(productResponses);
 
         Mockito.when(productService.findAll()).thenReturn(products);
-
         Mockito.when(productMapper.productListToProductResponseList(products)).thenReturn(productListResponse);
 
         String actualResponse = mockMvc.perform(get("/v1/product"))
@@ -57,6 +55,28 @@ public class ProductControllerTest extends AbstractTestController {
 
         Mockito.verify(productService, Mockito.times(1)).findAll();
         Mockito.verify(productMapper, Mockito.times(1)).productListToProductResponseList(products);
+
+        JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void whenGetProductById_thenReturnProductById() throws Exception{
+        Product product = createProduct(1L,null);
+        ProductResponse productResponse =createProductResponse(1L,null);
+
+        Mockito.when(productService.findById(1L)).thenReturn(product);
+        Mockito.when(productMapper.productToResponse(product)).thenReturn(productResponse);
+
+        String actualResponse = mockMvc.perform(get("/v1/product/1"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        String expectedResponse = StringTestUtils.readStringFromResource("response/find_product_by_id_response.json");
+
+        Mockito.verify(productService, Mockito.times(1)).findById(1L);
+        Mockito.verify(productMapper, Mockito.times(1)).productToResponse(product);
 
         JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
     }

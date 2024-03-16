@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "productCodeId": 2,
+  "client": 2,
+  "type": "Type",
+  "number": "number",
+  "priority": 1,
+  "dateOfConclusion": null,
+  "startDateTime": null,
+  "endDateTime":  null,
+  "days": 6,
+  "penaltyRate": 10.01,
+  "nso": 100.01,
+  "thresholdAmount": 1000.01,
+  "requisiteType": "RegisterType",
+  "interestRateType": "InterestRateType",
+  "taxRate": 9,
+  "reasonClose": "ReasonClose",
+  "state": "State",
+  "productRegisters": []
+}
