@@ -106,7 +106,7 @@ public class ProductControllerTest extends AbstractTestController {
 
         Product createproduct = createProduct(1L,null);
         ProductResponse productResponse =createProductResponse(1L,null);
-        UpsertProductRequest request = new UpsertProductRequest(2L,2L,"Type","new_number",1,null,null,null,6,BigDecimal.valueOf(10.01),
+        UpsertProductRequest request = new UpsertProductRequest(2L,2L,"Type","number",1,null,null,null,6,BigDecimal.valueOf(10.01),
                 BigDecimal.valueOf(100.01),BigDecimal.valueOf(1000.01),"RegisterType","InterestRateType",BigDecimal.valueOf(9),
                 "ReasonClose","State");
 
