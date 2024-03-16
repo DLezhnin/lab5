@@ -21,8 +21,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ProductControllerTest extends AbstractTestController {
@@ -129,8 +128,48 @@ public class ProductControllerTest extends AbstractTestController {
         Mockito.verify(productMapper, Mockito.times(1)).productToResponse(createproduct);
 
         JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+    }
 
+    @Test
+    public void whenUpdateProduct_thenReturnUpdatedProduct() throws Exception {
+        UpsertProductRequest request = new UpsertProductRequest(2L, 2L, "Type", "new_number", 1, null, null, null, 6, BigDecimal.valueOf(10.01),
+                BigDecimal.valueOf(100.01), BigDecimal.valueOf(1000.01), "RegisterType", "InterestRateType", BigDecimal.valueOf(9),
+                "ReasonClose", "State");
 
+        Product updatedProduct = new Product(1L, 2L, 2L, "Type", "new_number", 1, null, null, null, 6, BigDecimal.valueOf(10.01),
+                BigDecimal.valueOf(100.01), BigDecimal.valueOf(1000.01), "RegisterType", "InterestRateType", BigDecimal.valueOf(9),
+                "ReasonClose", "State", new ArrayList<>());
+        ProductResponse productResponse = new ProductResponse(1L, 2L, 2L, "Type", "new_number", 1, null, null, null, 6, BigDecimal.valueOf(10.01),
+                BigDecimal.valueOf(100.01), BigDecimal.valueOf(1000.01), "RegisterType", "InterestRateType", BigDecimal.valueOf(9),
+                "ReasonClose", "State", new ArrayList<>());
+
+        Mockito.when(productService.update(updatedProduct)).thenReturn(updatedProduct);
+        Mockito.when(productMapper.requestToProduct(1L, request)).thenReturn(updatedProduct);
+        Mockito.when(productMapper.productToResponse(updatedProduct)).thenReturn(productResponse);
+
+        String actualResponse = mockMvc.perform(put("/v1/product/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        String expectedResponse = StringTestUtils.readStringFromResource("response/update_product_response.json");
+
+        Mockito.verify(productService, Mockito.times(1)).update(updatedProduct);
+        Mockito.verify(productMapper, Mockito.times(1)).requestToProduct(1L,request);
+        Mockito.verify(productMapper, Mockito.times(1)).productToResponse(updatedProduct);
+
+        JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void whenDeleteProductById_thenReturnStatusNoContent() throws Exception {
+        mockMvc.perform(delete("/v1/product/1"))
+                .andExpect(status().isNoContent());
+
+        Mockito.verify(productService, Mockito.times(1)).deleteById(1L);
     }
 
 }
