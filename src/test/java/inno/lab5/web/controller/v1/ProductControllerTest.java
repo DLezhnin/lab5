@@ -1,7 +1,8 @@
-package inno.lab5.web.controller;
+package inno.lab5.web.controller.v1;
 
 import inno.lab5.AbstractTestController;
 import inno.lab5.StringTestUtils;
+import inno.lab5.exception.EntityNotFoundException;
 import inno.lab5.mapper.v1.ProductMapper;
 import inno.lab5.model.Product;
 import inno.lab5.model.ProductRegister;
@@ -170,6 +171,25 @@ public class ProductControllerTest extends AbstractTestController {
                 .andExpect(status().isNoContent());
 
         Mockito.verify(productService, Mockito.times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void whenFindByIdNotExistedProduct_thenReturnError() throws Exception {
+        Mockito.when(productService.findById(5L)).thenThrow(new EntityNotFoundException("Клиент с id 5 не найден!"));
+
+        var response = mockMvc.perform(get("/v1/product/5"))
+                .andExpect(status().isNotFound())
+                .andReturn()
+                .getResponse();
+
+        response.setCharacterEncoding("UTF-8");
+
+        String actualResponse = response.getContentAsString();
+        String expectedResponse = StringTestUtils.readStringFromResource("response/product_by_id_not_found_response.json");
+
+        Mockito.verify(productService, Mockito.times(1)).findById(5L);
+
+        JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
     }
 
 }

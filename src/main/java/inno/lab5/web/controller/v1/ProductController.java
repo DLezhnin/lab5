@@ -1,5 +1,6 @@
-package inno.lab5.web.v1;
+package inno.lab5.web.controller.v1;
 
+import inno.lab5.exception.EntityNotFoundException;
 import inno.lab5.mapper.v1.ProductMapper;
 import inno.lab5.model.Product;
 import inno.lab5.service.ProductService;
@@ -55,4 +56,5 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }

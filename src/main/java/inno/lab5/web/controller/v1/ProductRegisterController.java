@@ -1,4 +1,4 @@
-package inno.lab5.web.v1;
+package inno.lab5.web.controller.v1;
 
 import inno.lab5.mapper.v1.ProductRegisterMapper;
 import inno.lab5.model.ProductRegister;
