@@ -1,0 +1,53 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "productCodeId": 11,
+      "client": 15,
+      "type": "type1",
+      "number": "kt-100",
+      "priority": 7,
+      "dateOfConclusion": "22.08.2012",
+      "startDateTime": "22.08.2012",
+      "endDateTime":  "22.08.2012",
+      "days": 6,
+      "penaltyRate": 10.01,
+      "nso": 100.01,
+      "thresholdAmount": 1000.01,
+      "requisiteType": "RegisterType",
+      "taxRate": "taxRate",
+      "reasonClose": "reasonClose",
+      "state": "state",
+      "productRegisters": []
+    },
+    {
+      "id": 2,
+      "productCodeId": 19,
+      "client": 12,
+      "type": "type2",
+      "number": "tt-120",
+      "priority": 1,
+      "dateOfConclusion": "22.08.2012",
+      "startDateTime": "22.08.2012",
+      "endDateTime":  "22.08.2012",
+      "days": 6,
+      "penaltyRate": 10.01,
+      "nso": 100.01,
+      "thresholdAmount": 1000.01,
+      "requisiteType": "RegisterType",
+      "taxRate": "taxRate",
+      "reasonClose": "reasonClose",
+      "state": "state",
+      "productRegisters": [
+        {
+          "id": 1,
+          "type": "type",
+          "account": 555,
+          "currencyCode": "RUR",
+          "state": "Close",
+          "accountNumber": "40815810000000000001"
+        }
+      ]
+    }
+  ]
+}
