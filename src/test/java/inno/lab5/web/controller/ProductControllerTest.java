@@ -32,7 +32,7 @@ public class ProductControllerTest extends AbstractTestController {
     public void whenFindAll_thenReturnAllProducts() throws Exception{
         List<Product> products = new ArrayList<>();
         products.add(createProduct(1L,null));
-        ProductRegister productRegister =createProductRegister(1L,null);
+        ProductRegister productRegister = createProductRegister(1L,null);
         products.add(createProduct(2L,productRegister));
 
         List<ProductResponse> productResponses = new ArrayList<>();
@@ -57,6 +57,7 @@ public class ProductControllerTest extends AbstractTestController {
 
         Mockito.verify(productService, Mockito.times(1)).findAll();
         Mockito.verify(productMapper, Mockito.times(1)).productListToProductResponseList(products);
+
         JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
     }
 }

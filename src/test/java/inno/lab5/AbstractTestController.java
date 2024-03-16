@@ -28,23 +28,24 @@ public abstract class AbstractTestController {
     protected ObjectMapper objectMapper;
 
     protected Product createProduct(Long id, ProductRegister productRegister){
+
         Product product = new Product(
                 id,
-                id+1,
-                id+2,
+                2L,
+                2L,
                 "Type",
                 "number",
                 1,
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                4,
+                null,
+                null,
+                null,
+                6,
                 BigDecimal.valueOf(10.01),
                 BigDecimal.valueOf(100.01),
                 BigDecimal.valueOf(1000.01),
                 "RegisterType",
                 "InterestRateType",
-                BigDecimal.valueOf(9.00),
+                BigDecimal.valueOf(9),
                 "ReasonClose",
                 "State",
                 new ArrayList<>()
@@ -61,7 +62,7 @@ public abstract class AbstractTestController {
                     id,
                     product,
                     "Type",
-                    id+1,
+                    2L,
                     "CurrencyCode",
                     "State",
                     "AccountNumber"
@@ -72,37 +73,40 @@ public abstract class AbstractTestController {
     protected ProductResponse createProductResponse(Long id, ProductRegisterResponse productRegisterResponse){
         ProductResponse productResponse = new ProductResponse(
                 id,
-                id+1,
-                id+2,
+                2L,
+                2L,
                 "Type",
                 "number",
                 1,
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                4,
+                null,
+                null,
+                null,
+                6,
                 BigDecimal.valueOf(10.01),
                 BigDecimal.valueOf(100.01),
                 BigDecimal.valueOf(1000.01),
                 "RegisterType",
                 "InterestRateType",
-                BigDecimal.valueOf(9.00),
+                BigDecimal.valueOf(9),
                 "ReasonClose",
                 "State",
                 new ArrayList<>()
         );
+        if(productRegisterResponse != null){
+            productResponse.getProductRegisters().add(productRegisterResponse);
+        }
         return productResponse;
     }
 
     protected ProductRegisterResponse createProductRegisterResponse(Long id) {
         return new ProductRegisterResponse(
                 id,
-                null,
+                1L,
                 "Type",
-                id + 1,
-                "CurrencyCode",
+                2L,
+                "RUR",
                 "State",
-                "AccountNumber"
+                "40815810000000000001"
         );
     }
 }
