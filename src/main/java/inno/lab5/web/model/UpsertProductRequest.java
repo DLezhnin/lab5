@@ -1,5 +1,6 @@
 package inno.lab5.web.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class UpsertProductRequest {
     private Long       productCodeId;
     private Long       client;
     private String     type;
+    @NotBlank(message = "Номер должен быть заполнен")
     private String     number;
     private int        priority;
     private Timestamp  dateOfConclusion;

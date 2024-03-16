@@ -7,6 +7,7 @@ import inno.lab5.service.ProductService;
 import inno.lab5.web.model.ProductListResponse;
 import inno.lab5.web.model.ProductResponse;
 import inno.lab5.web.model.UpsertProductRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public  ResponseEntity<ProductResponse> create(@RequestBody UpsertProductRequest request){
+    public  ResponseEntity<ProductResponse> create(@RequestBody @Valid UpsertProductRequest request){
         Product newProduct = productService.save(productMapper.requestToProduct(request));
 
         return ResponseEntity.status(HttpStatus.CREATED)

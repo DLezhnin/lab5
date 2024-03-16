@@ -149,8 +149,8 @@ public class ProductControllerTest extends AbstractTestController {
         Mockito.when(productMapper.productToResponse(updatedProduct)).thenReturn(productResponse);
 
         String actualResponse = mockMvc.perform(put("/v1/product/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -190,6 +190,28 @@ public class ProductControllerTest extends AbstractTestController {
         Mockito.verify(productService, Mockito.times(1)).findById(5L);
 
         JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void whenCreatedProductWithEmptyNumber_thenReturnError() throws Exception{
+
+
+        var response = mockMvc.perform(post("/v1/product")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new UpsertProductRequest(2L, 2L, "Type", null, 1, null, null, null, 6, BigDecimal.valueOf(10.01),
+                                BigDecimal.valueOf(100.01), BigDecimal.valueOf(1000.01), "RegisterType", "InterestRateType", BigDecimal.valueOf(9),
+                                "ReasonClose", "State"))))
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse();
+
+        response.setCharacterEncoding("UTF-8");
+
+        String actualResponse = response.getContentAsString();
+        String expectedResponse = StringTestUtils.readStringFromResource("response/empty_product_number_respones.json");
+
+        JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+
     }
 
 }
